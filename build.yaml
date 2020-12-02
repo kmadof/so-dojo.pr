@@ -1,0 +1,21 @@
+# https://stackoverflow.com/questions/65035156/pr-not-triggered-when-opening-github-pr-azure-pipeline-yaml/65035407#65035407
+
+trigger: none # I turned this off for to stop push triggers (but they work fine)
+
+pr:
+  branches:
+    include:
+      - "*" # This does not trigger the pipeline 
+
+stages:
+  - stage: EchoTriggerStage
+    displayName: Echoing trigger reason
+    jobs:
+      - job: A
+        steps:
+          - script: echo 'Build reason::::' $(Build.Reason)
+            displayName: The build reason
+
+# ... some more stages here triggered by PullRequests....
+# ... some more stages here triggered by push (CI)....
+
